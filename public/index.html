@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>yummy turntable</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      margin: 0;
+      padding: 0;
+      text-align: center;
+      background-color: #f5f5f5;
+    }
+
+    h1 {
+      margin-top: 20px;
+    }
+
+    #loginSection,
+    #wheelSection {
+      margin-top: 30px;
+      flex-wrap: wrap;
+    }
+
+    #loginSection input,
+    #wheelSection input {
+      margin: 5px;
+      padding: 6px;
+      font-size: 16px;
+    }
+
+    button {
+      padding: 8px 16px;
+      margin: 5px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    /* 🔵 控制按鈕橫向排列 */
+    .button-group {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 15px;
+      width: 100%;
+    }
+
+    /* 🔵 主要功能區塊：地圖與轉盤 */
+    .main-content {
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      gap: 40px;
+      margin-top: 30px;
+      flex-wrap: wrap;
+      width: 100%;
+    }
+
+    /* 地圖樣式 */
+    #map {
+      width: 600px;
+      height: 600px;
+      border: 2px solid #ccc;
+      border-radius: 8px;
+    }
+
+    /* 轉盤樣式 */
+    #wheelCanvas {
+      border: 3px solid #888;
+      border-radius: 50%;
+      width: 600px;
+      height: 600px;
+    }
+
+    .wheel-container {
+      position: relative;
+      width: 600px;
+      height: 600px;
+    }
+
+    .pointer {
+      position: absolute;
+      top: -12px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 0;
+      height: 0;
+      border-left: 12px solid transparent;
+      border-right: 12px solid transparent;
+      border-top: 20px solid #e74c3c;
+      z-index: 10;
+    }
+  </style>
+
+
+</head>
+
+<body>
+  <h1>Yummy Turntable</h1>
+
+  <div id="loginSection">
+    <h2>登入／註冊</h2>
+    <input type="text" id="username" placeholder="帳號" /><br />
+    <input type="password" id="password" placeholder="密碼" /><br />
+    <button onclick="login()">登入</button>
+    <button onclick="register()">註冊</button>
+  </div>
+
+  <div id="wheelSection">
+
+    <!-- 🔵 橫向排列的按鈕區塊 -->
+    <div class="button-group">
+      搜尋半徑（公尺）：
+      <input type="number" id="radiusInput" value="1000" min="100" max="5000" step="100" />
+      <button id="fetchBtn">取得附近餐廳</button>
+      <button onclick="startSpin()">開始轉動</button>
+      <button onclick="logout()">登出</button>
+    </div>
+
+    <!-- 🔵 地圖與轉盤的左右排列 -->
+    <div class="main-content">
+      <div id="map"></div>
+      <div class="wheel-container">
+        <div class="pointer"></div>
+        <canvas id="wheelCanvas" width="400" height="400"></canvas>
+      </div>
+    </div>
+  </div>
+
+  <!-- 🟢 載入 script.js（必須先於 Google Maps API） -->
+  <script src="script.js"></script>
+
+  <!-- 🟢 Google Maps API 最後載入（會觸發 initMap） -->
+  <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDtzCQsfABCh_mYLXxcuF7-1RBvR3EOJEY&callback=initMap&libraries=places">
+    </script>
+</body>
+
+</html>
